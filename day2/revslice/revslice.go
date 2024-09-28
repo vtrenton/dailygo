@@ -18,7 +18,7 @@ func revarray(input []int) []int {
 
 func rmdup(input []int) []int {
 	for i, v := range input {
-		for m := i + 1; m <= len(input)-1; m++ {
+		for m := i + 1; m < len(input); m++ {
 			if v == input[m] {
 				input = append(input[:m], input[m+1:]...)
 			}
