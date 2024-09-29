@@ -15,7 +15,9 @@ func main() {
 	for _, v := range inslice {
 		m[v] = m[v] + 1
 	}
-	fmt.Println(m)
+	for key, val := range m {
+		fmt.Printf("%s: %d\n", key, val)
+	}
 }
 
 // This function lowercases and removes all special chars from string
