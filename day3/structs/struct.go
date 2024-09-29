@@ -2,25 +2,26 @@ package main
 
 import (
 	"bufio"
+	"encoding/json"
 	"fmt"
 	"os"
 )
 
 type Person struct {
-	first_name string
-	last_name  string
-	age        int
-	birthday   string
-	weight     int
+	First    string
+	Last     string
+	Age      int
+	Birthday string
+	Weight   int
 }
 
 func (p *Person) Update(first string, last string) {
 	reader := bufio.NewReader(os.Stdin)
-	p.first_name = first
-	p.last_name = last
+	p.First = first
+	p.Last = last
 
 	fmt.Println("How old are you?")
-	if n, err := fmt.Scanf("%d", &p.age); err != nil || n != 1 {
+	if n, err := fmt.Scanf("%d", &p.Age); err != nil || n != 1 {
 		fmt.Println("bad input! ", err)
 		os.Exit(1)
 	}
@@ -33,24 +34,36 @@ func (p *Person) Update(first string, last string) {
 		os.Exit(1)
 	}
 	birthday = birthday[:len(birthday)-1]
-	p.birthday = birthday
+	p.Birthday = birthday
 
 	fmt.Println("How many lbs of muscle are you made of?")
-	if n, err := fmt.Scanf("%d", &p.weight); err != nil || n != 1 {
+	if n, err := fmt.Scanf("%d", &p.Weight); err != nil || n != 1 {
 		fmt.Println("bad input! ", err)
 		os.Exit(1)
 	}
 }
 
+func (p Person) jsonify() string {
+	j, err := json.Marshal(p)
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+	return string(j)
+}
+
 func main() {
 	me := Person{
-		first_name: "",
-		last_name:  "",
-		age:        0,
-		birthday:   "",
-		weight:     0, // all muscle
+		First:    "",
+		Last:     "",
+		Age:      0,
+		Birthday: "",
+		Weight:   0, // all muscle
 	}
 
 	me.Update("Trent", "VanderWert")
-	fmt.Printf("Hi my name is %s %s, I'm %d years old and was born on %s, I weigh %dlbs\n", me.first_name, me.last_name, me.age, me.birthday, me.weight)
+	fmt.Printf("Hi my name is %s %s, I'm %d years old and was born on %s, I weigh %dlbs\n", me.First, me.Last, me.Age, me.Birthday, me.Weight)
+
+	jsonstr := me.jsonify()
+	fmt.Println(jsonstr)
 }
