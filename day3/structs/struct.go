@@ -8,11 +8,14 @@ import (
 )
 
 type Person struct {
-	First    string
-	Last     string
-	Age      int
-	Birthday string
-	Weight   int
+	// properties need to have an upper case first letter
+	// This is so go will allow the fields to be exported
+	// to the encoding/json function
+	First    string `json:"firstname"` // I can override the field name for the json if i don't like the defaults
+	Last     string `json:"lastname"`  // these are called struct tags
+	Age      int    `json:"age"`
+	Birthday string `json:"birthday"`
+	Weight   int    `json:"weight"`
 }
 
 func (p *Person) Update(first string, last string) {
