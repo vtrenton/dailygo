@@ -50,4 +50,32 @@ func main() {
 
 	// Rectangle
 	fmt.Printf("The area of the Rectangle is: %f\nThe Perimeter of the Rectangle is: %f\n", r.Area(), r.Perimeter())
+
+	// basic type assertion on empty interfaces
+	var a interface{}
+	a = 10
+	v, b := a.(int) //get the value back and a bool representing if our assertion (int) was true
+	if b {
+		fmt.Printf("%d is an int!\n", v)
+	}
+
+	fmt.Println(getInterfaceType(1))
+	fmt.Println(getInterfaceType("hello"))
+	fmt.Println(getInterfaceType(4.8))
+	fmt.Println(getInterfaceType(true))
+}
+
+func getInterfaceType(i interface{}) string {
+	switch i.(type) {
+	case int:
+		return "The interface is a int!"
+	case string:
+		return "The interface is a string!"
+	case float64:
+		return "The interface is a float!"
+	case bool:
+		return "The interface is a bool!"
+	default:
+		return "not sure about that type!"
+	}
 }
