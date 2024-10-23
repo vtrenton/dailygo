@@ -50,11 +50,12 @@ func twotothepowerof(n int) func() int {
 		// not a power
 		//return 2 ^ n
 
-		//imagine importing math.Pow lol
-		x := 1
-		for i := 0; i < n; i++ {
-			x *= 2
-		}
-		return x
+		// BAD
+		//x := 1
+		//for i := 0; i < n; i++ {
+		//	x *= 2
+		//}
+		//return x
+		return 1 << n
 	}
 }
